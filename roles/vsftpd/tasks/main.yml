@@ -1,0 +1,23 @@
+    - name: installing the vsftpd ftp server
+      apt:
+        name:
+        - vsftpd
+        state: present
+        update_cache: yes
+
+    - name: Creating a copy of the initial configuration vsftpd
+      copy:
+        src: /etc/vsftpd.conf
+        dest: /etc/vsftpd.conf.bak
+        remote_src: yes
+
+    - name: Copy Conf Files to vsftpd
+      template:
+        src=templates/vsftpd.conf.j2
+        dest=/etc/vsftpd.conf
+
+    - name: Starting the vsftpd server
+      systemd:
+        name: vsftpd
+        state: restarted
+        enabled: true

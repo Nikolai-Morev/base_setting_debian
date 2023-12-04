@@ -1,0 +1,27 @@
+    # Обновляем все пакеты с помощью модуля apt
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
+
+    # Обновляем все пакеты
+    - name: Upgrade all packages on servers
+      apt:
+        upgrade: dist
+        force_apt_get: yes
+
+    # Добавляем ключи репозитория и сам репозиторий
+    - name: Add the Anydesk GPG key and APT repository
+      shell:
+        wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add - &&
+        echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
+      args:
+        warn: no
+
+    # Устанавливаем anydesk
+    - name: Install the anydesk package
+      apt:
+        name: anydesk
+        state: present
+        update_cache: yes

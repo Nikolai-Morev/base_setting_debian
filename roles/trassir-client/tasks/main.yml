@@ -1,0 +1,19 @@
+    # Обновляем все пакеты с помощью модуля apt
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      apt: 
+        update_cache: yes 
+        force_apt_get: yes 
+        cache_valid_time: 3600
+
+    # Обновляем все пакеты
+    - name: Upgrade all packages on servers
+      apt: 
+        upgrade: dist 
+        force_apt_get: yes
+
+    # Устанавливаем Google Chrome
+    - name: install a deb package Trassir Client from the internet
+      apt: 
+        deb: https://ncloud.dssl.ru/s/eSSjJeb5FkoeadQ/download/t1client-standalone-4.3.2.0-1168010-Release.deb
+        state: present
+

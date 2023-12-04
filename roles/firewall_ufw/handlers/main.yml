@@ -1,0 +1,19 @@
+- name: restart ufw
+  systemd:
+    name: ufw
+    state: restarted
+
+- name: start ufw
+  systemd:
+    name: ufw
+    state: started
+
+- name: stop ufw
+  systemd:
+    name: ufw
+    state: stopped
+
+- name: enable ufw
+  systemd:
+    name: ufw
+    enabled: yes

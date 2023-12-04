@@ -1,0 +1,40 @@
+    # Обновляем все пакеты с помощью модуля apt
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      apt: 
+        update_cache: yes 
+        force_apt_get: yes 
+        cache_valid_time: 3600
+
+    # Обновляем все пакеты
+    - name: Upgrade all packages on servers
+      apt: 
+        upgrade: dist 
+        force_apt_get: yes
+    
+    # Установка просмотрщиков pdf
+    - name: Install okular pdf
+      apt: 
+        name: okular
+        state: present
+        update_cache: yes
+
+    - name: Remove kdeconnect
+      apt: 
+        name: kdeconnect
+        state: absent
+        update_cache: yes 
+
+    - name: Install atril pdf
+      apt: 
+        name: atril
+        state: present
+        update_cache: yes
+
+    # Установка обоих просмотрщиков
+    #- name: Install atril&okular pdf
+    #  apt: 
+    #    name: 
+    #    - atril
+    #    - okular
+    #    state: present
+    #    update_cache: yes

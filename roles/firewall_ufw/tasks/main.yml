@@ -1,0 +1,32 @@
+    - name: Install ufw
+      apt:
+        name:
+        - ufw
+        state: present
+        update_cache: yes
+
+    - name: Permission to monitor access ports
+      ufw:
+        role: "{{ item.role }}"
+        port: "{{ item.port }}"
+        proto: "{{ item.proto }}"
+      loop:
+        - {role: allow , port: 9090, proto: tcp}  # prometheus
+        - {role: allow , port: 9100, proto: tcp}  # node-exporter
+        - {role: allow , port: 9093, proto: tcp}  # alertmanager
+        - {role: allow , port: 9094, proto: tcp}  # alertmanager
+        - {role: allow , port: 9094, proto: udp}  # alertmanager
+        - {role: allow , port: 22, proto: tcp}    # ssh
+        - {role: allow , port: 80, proto: tcp}    # http
+        - {role: allow , port: 443, proto: tcp}   # https
+        - {role: allow , port: 2049, proto: tcp}  # nfs
+        - {role: allow , port: 67, proto: udp}    # dhcp клиент
+        - {role: allow , port: 68, proto: udp}    # dhcp сервер
+        - {role: allow , port: 53, proto: udp}    # dns
+        - {role: allow , port: 3000, proto: tcp}  # grafana
+        - {role: allow , port: 3089, proto: tcp}  # xrdp/rdp
+        - {role: allow , port: 1540, proto: tcp}  # Агент сервера 1С
+        - {role: allow , port: 1541, proto: tcp}  # Менеджер кластера 1с
+        - {role: allow , port: 1560-1591, proto: tcp}  # Порты для рабочих процессов 1С
+      notify:
+        - reload ufw

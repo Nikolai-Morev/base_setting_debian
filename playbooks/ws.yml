@@ -1,0 +1,20 @@
+- hosts: all
+  become: True
+  become_method: sudo
+  roles:
+    - ./roles/update-system
+    - ./roles/desktop_env
+    - ./roles/firewall_ufw
+    - ./roles/addusers
+    - ./roles/xrdp
+    - ./roles/vsftpd
+    - ./roles/pdf_viewer
+    - ./roles/anydesk
+    - ./roles/email
+    - ./roles/graphics
+    - ./roles/messagers
+    - ./roles/google_chrome
+    - ./roles/yandex_browser
+    - ./roles/archiver
+    - ./roles/trassir-client
+    - ./roles/libreoffice

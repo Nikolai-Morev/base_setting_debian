@@ -1,0 +1,14 @@
+---
+- name: Add required users to Linux workstations and servers
+  user:
+    name: "{{ item.name }}"
+    comment: "{{ item.comment }}"
+    shell: /bin/bash
+    groups: "{{ item.groups }}"
+    password: "{{ item.password }}"
+    home: /home/{{ item.name }}
+    append: yes
+    state: present
+  loop:
+    #- { name: 'morev', comment: 'Test user1', groups: 'sudo', password: '$6$xafm3mwNGP/dGgqS$F4Kl8HdCydWbQHvAl2fUK2QN6rajr.J2wQ6S5oYIosAElx7E.b.o.glSaWYTgMiJHIpwlc9SQ62KefrsYWtPE.'}
+    - { name: 'test', comment: 'Test user2', groups: 'users', password: '$6$mPhPnY6O70pyqoeQ$omFMLVgM8u8rmX4eLCDHmC3m7Z9o5/81WQ6iWTQGGqsymSj7oC6hxCBTNHypRgPvOq.Mn9bYZICyiStUz6IFh.'}

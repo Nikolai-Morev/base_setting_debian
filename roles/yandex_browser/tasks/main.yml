@@ -1,0 +1,44 @@
+    # Обновляем все пакеты с помощью модуля apt
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      apt: 
+        update_cache: yes 
+        force_apt_get: yes 
+        cache_valid_time: 3600
+
+    # Обновляем все пакеты
+    - name: Upgrade all packages on servers
+      apt: 
+        upgrade: dist 
+        force_apt_get: yes
+    
+    # Установка дополнительного программного обеспечения
+    - name: Install additional software
+      apt: 
+        name: 
+        - wget 
+        - apt-transport-https 
+        - gnupg2
+        state: present
+        update_cache: yes
+
+    # Добавляем ключи репозитория и сам репозиторий
+    - name: Add the Yandex browser GPG key and APT repository
+      shell: 
+        wget -q -O - https://repo.yandex.ru/yandex-browser/YANDEX-BROWSER-KEY.GPG | sudo apt-key add - &&
+        echo "deb [arch=amd64] http://repo.yandex.ru/yandex-browser/deb stable main" >> /etc/apt/sources.list.d/yandex-stable.list
+      args:
+        warn: no
+
+    # Обновляем все пакеты с помощью модуля apt
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      apt: 
+        update_cache: yes 
+        force_apt_get: yes 
+        cache_valid_time: 3600
+    
+    # Устанавливаем yandex-browser-stable
+    - name: Install the yandex-browser package
+      apt:
+        name: yandex-browser-stable
+        state: present
+        update_cache: yes
